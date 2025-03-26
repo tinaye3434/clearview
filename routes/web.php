@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 
     Route::get('funding-request/index', \App\Livewire\FundingRequest\Index::class)->name('funding.index');
+    Route::get('funding-request/budget/{request}', \App\Livewire\FundingRequest\Budget::class)->name('funding.budget');
 });
 
 require __DIR__.'/auth.php';

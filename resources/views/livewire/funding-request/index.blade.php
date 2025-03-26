@@ -1,7 +1,7 @@
 <div>
 
     <div class="text-right mb-3">
-        <flux:modal.trigger name="edit-profile">
+        <flux:modal.trigger name="add-request">
             <flux:button>Add Request</flux:button>
         </flux:modal.trigger>
     </div>
@@ -10,17 +10,19 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Product name
+                <th class="px-6 py-3">
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Color
+                    Title
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Category
+                    Description
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Price
+                    Amount
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Funding Status
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <span class="sr-only">Edit</span>
@@ -28,79 +30,74 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17"
-                </th>
-                <td class="px-6 py-4">
-                    Silver
-                </td>
-                <td class="px-6 py-4">
-                    Laptop
-                </td>
-                <td class="px-6 py-4">
-                    $2999
-                </td>
-                <td class="px-6 py-4 text-right">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Microsoft Surface Pro
-                </th>
-                <td class="px-6 py-4">
-                    White
-                </td>
-                <td class="px-6 py-4">
-                    Laptop PC
-                </td>
-                <td class="px-6 py-4">
-                    $1999
-                </td>
-                <td class="px-6 py-4 text-right">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Magic Mouse 2
-                </th>
-                <td class="px-6 py-4">
-                    Black
-                </td>
-                <td class="px-6 py-4">
-                    Accessories
-                </td>
-                <td class="px-6 py-4">
-                    $99
-                </td>
-                <td class="px-6 py-4 text-right">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
+                @forelse($results as $item)
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td class="px-6 py-4">
+                            <img class="rounded-full w-10 h-10" alt="logo" src="{{ asset('images/img1.jpg') }}">
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $item->title }}
+                        </td>
+                        <td class="px-6 py-4">
+                        {{ $item->description }}
+                    </td>
+                        <td class="px-6 py-4">
+                        {{ $item->amount }}
+                    </td>
+                        <td class="px-6 py-4">
+                        @if($item->is_funded)
+                            <span class="bg-indigo-500 shadow-lg shadow-indigo-500/50 text-white">Funded</span>
+                        @else
+                            <span class="bg-indigo-500 shadow-lg shadow-indigo-500/50 text-white p-1 rounded">Not Yet</span>
+                        @endif
+                    </td>
+                        <td class="px-6 py-4 text-right">
+                            <button wire:click="editRequest({{ $item->id }})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
+                            <a href="{{ route('funding.budget', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Budget</a>
+                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td colspan="8" class="px-6 py-4 text-center">
+                            <span class="font-medium text-red-600 dark:text-red-500 hover:underline">No Data Available</span>
+                        </td>
+                    </tr>
+                @endforelse
+
             </tbody>
         </table>
     </div>
 
 
 {{--    modal--}}
-    <flux:modal name="edit-profile" class="md:w-96">
+    <flux:modal name="add-request" class="md:w-150">
         <div class="space-y-6">
             <div>
-                <flux:heading size="lg">Update profile</flux:heading>
-                <flux:subheading>Make changes to your personal details.</flux:subheading>
+                <flux:heading size="lg">Add Fund Request</flux:heading>
             </div>
 
-            <flux:input label="Name" placeholder="Your name" />
+            <form wire:submit="save">
+                @if ($image)
+                    Image Preview:
+                    <img alt="image" src="{{ $image->temporaryUrl() }}">
+                @endif
 
-            <flux:input label="Date of birth" type="date" />
+                <flux:input type="hidden" wire:model="user_id" value="{{ $user_id }}"/>
 
-            <div class="flex">
-                <flux:spacer />
+                <flux:input type="file" wire:model="image" label="Image"/>
 
-                <flux:button type="submit" variant="primary">Save changes</flux:button>
-            </div>
+                <flux:input label="Title" placeholder="Your Title" wire:model="title" />
+
+                <flux:textarea label="Description" placeholder="Your Description" wire:model="description" />
+
+                    <div class="flex">
+                        <flux:spacer />
+
+                        <flux:button type="submit" variant="primary">Save changes</flux:button>
+                    </div>
+            </form>
+
         </div>
     </flux:modal>
 </div>
