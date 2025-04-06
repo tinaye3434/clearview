@@ -22,7 +22,7 @@
                     Amount
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Funding Status
+                    Funded
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <span class="sr-only">Edit</span>
@@ -46,15 +46,15 @@
                     </td>
                         <td class="px-6 py-4">
                         @if($item->is_funded)
-                            <span class="bg-indigo-500 shadow-lg shadow-indigo-500/50 text-white">Funded</span>
+                                <flux:badge color="green">Yes</flux:badge>
                         @else
-                            <span class="bg-indigo-500 shadow-lg shadow-indigo-500/50 text-white p-1 rounded">Not Yet</span>
+                                <flux:badge color="red">No</flux:badge>
                         @endif
                     </td>
                         <td class="px-6 py-4 text-right">
                             <button wire:click="editRequest({{ $item->id }})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
                             <a href="{{ route('funding.budget', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Budget</a>
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                            <a href="{{ route('funding.detailed-view', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                         </td>
                     </tr>
                 @empty

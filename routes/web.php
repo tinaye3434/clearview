@@ -24,8 +24,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 
-    Route::get('funding-request/index', \App\Livewire\FundingRequest\Index::class)->name('funding.index');
-    Route::get('funding-request/budget/{request}', \App\Livewire\FundingRequest\Budget::class)->name('funding.budget');
+    Route::get('creators/funding-request/index', \App\Livewire\FundingRequest\Index::class)->name('funding.index');
+    Route::get('creators/funding-request/budget/{request}', \App\Livewire\FundingRequest\Budget::class)->name('funding.budget');
+    Route::get('funding-request/detailed-view/{request}', \App\Livewire\FundingRequest\DetailedView::class)->name('funding.detailed-view');
+
+    Route::get('funding-request/index', \App\Livewire\Donors\FundingRequest\Index::class)->name('donor.funding.index');
 });
 
 require __DIR__.'/auth.php';
