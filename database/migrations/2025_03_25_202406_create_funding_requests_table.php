@@ -17,9 +17,11 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->double('amount')->default(0);
-            $table->boolean('status')->default(true);
+            $table->string('status')->default('pending');
             $table->boolean('is_funded')->default(false);
             $table->string('image')->nullable();
+            $table->boolean('is_approved')->default(false);
+            $table->unsignedInteger('approver_id')->nullable();
             $table->timestamps();
         });
     }

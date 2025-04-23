@@ -23,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+    Route::get('settings/user', \App\Livewire\Settings\User::class)->name('settings.user');
 
     Route::get('creators/funding-request/index', \App\Livewire\FundingRequest\Index::class)->name('funding.index');
     Route::get('creators/funding-request/budget/{request}', \App\Livewire\FundingRequest\Budget::class)->name('funding.budget');

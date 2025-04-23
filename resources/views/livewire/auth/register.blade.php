@@ -1,14 +1,15 @@
 <div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
+    <x-auth-header :title="__('Create an account')" :description="__('Enter your organisations details below to create your account')" />
 
     <!-- Session Status -->
     <x-auth-session-status class="text-center" :status="session('status')" />
 
-    <form wire:submit="register" class="flex flex-col gap-6">
+    <form wire:submit="register" class="flex flex-col gap-2">
         <!-- Name -->
         <flux:input
             wire:model="name"
             :label="__('Name')"
+            badge="required"
             type="text"
             required
             autofocus
@@ -20,6 +21,7 @@
         <flux:input
             wire:model="email"
             :label="__('Email address')"
+            badge="required"
             type="email"
             required
             autocomplete="email"
@@ -28,23 +30,34 @@
 
         <!-- Password -->
         <flux:input
-            wire:model="password"
-            :label="__('Password')"
-            type="password"
+            wire:model="address"
+            :label="__('Physical Address')"
+            badge="required"
+            type="text"
             required
-            autocomplete="new-password"
-            :placeholder="__('Password')"
+            autocomplete="physical address"
+            :placeholder="__('Physical Address')"
         />
 
         <!-- Confirm Password -->
         <flux:input
-            wire:model="password_confirmation"
-            :label="__('Confirm password')"
-            type="password"
+            wire:model="phone"
+            :label="__('Phone Number')"
+            badge="required"
+            type="number"
             required
-            autocomplete="new-password"
-            :placeholder="__('Confirm password')"
+            autocomplete="contact"
+            :placeholder="__('Contact')"
         />
+
+        <flux:select
+            wire:model="type"
+            :label="__('Type/ Nature of Organisation')"
+            badge="required"
+            placeholder="--Select one--">
+            <flux:select.option>DONOR</flux:select.option>
+            <flux:select.option>NGO</flux:select.option>
+        </flux:select>
 
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full">

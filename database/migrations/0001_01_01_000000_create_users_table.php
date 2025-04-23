@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->bigInteger('organisation_id');
+            $table->boolean('status')->default(true);
             $table->boolean('is_admin')->default(false);
+            $table->boolean('is_donor')->default(false);
+            $table->string('role')->default('general');
             $table->rememberToken();
             $table->timestamps();
         });

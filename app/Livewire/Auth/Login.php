@@ -12,7 +12,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-#[Layout('components.layouts.auth')]
+#[Layout('components.layouts.auth.card')]
 class Login extends Component
 {
     #[Validate('required|string|email')]
@@ -44,7 +44,7 @@ class Login extends Component
         Session::regenerate();
 
 //        dd(Auth::user());
-        if (Auth::user()->is_admin == 1)
+        if (Auth::user()->is_admin == 1 && Auth::user()->is_donor == 0)
         {
             $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
         }

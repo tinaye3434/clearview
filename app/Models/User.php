@@ -18,11 +18,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -56,5 +52,10 @@ class User extends Authenticatable
             ->explode(' ')
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
+    }
+
+    public function organisation()
+    {
+        return $this->belongsTo(OrganisationDetail::class, 'organisation_id');
     }
 }
