@@ -93,34 +93,54 @@
             </div>
 
             <div class="space-y-2 mb-4">
-                <button wire:click="approve({{ $fundingRequest->id }})" class="w-full bg-yellow-400 hover:bg-yellow-300 text-white font-bold py-2 rounded">Approve</button>
-                @if( \Illuminate\Support\Facades\Auth::user()->role == 'approver' &&  $fundingRequest->is_approved == 0)
-                    <button class="w-full bg-yellow-400 hover:bg-yellow-300 text-white font-bold py-2 rounded">Approve</button>
-                @endif
+                <flux:modal.trigger name="donate">
+                    <flux:button class="w-full bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 rounded">Donate now</flux:button>
+                </flux:modal.trigger>
 {{--                <button class="w-full bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 rounded">Donate now</button>--}}
             </div>
 
-{{--            <p class="text-sm text-purple-700 font-semibold mb-4">184 people have just made a donation</p>--}}
+            {{--            <p class="text-sm text-purple-700 font-semibold mb-4">184 people have just made a donation</p>--}}
 
-{{--            <div class="space-y-3 text-sm">--}}
-{{--                <div class="flex justify-between">--}}
-{{--                    <span class="font-semibold">Jasmeen Kaur</span>--}}
-{{--                    <span class="text-gray-600">$25 · <a href="#" class="text-blue-500 underline">Recent donation</a></span>--}}
-{{--                </div>--}}
-{{--                <div class="flex justify-between">--}}
-{{--                    <span class="font-semibold">Anonymous</span>--}}
-{{--                    <span class="text-gray-600">$500 · <a href="#" class="text-blue-500 underline">Top donation</a></span>--}}
-{{--                </div>--}}
-{{--                <div class="flex justify-between">--}}
-{{--                    <span class="font-semibold">Rupinder Singh</span>--}}
-{{--                    <span class="text-gray-600">$100 · <a href="#" class="text-blue-500 underline">First donation</a></span>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+            {{--            <div class="space-y-3 text-sm">--}}
+            {{--                <div class="flex justify-between">--}}
+            {{--                    <span class="font-semibold">Jasmeen Kaur</span>--}}
+            {{--                    <span class="text-gray-600">$25 · <a href="#" class="text-blue-500 underline">Recent donation</a></span>--}}
+            {{--                </div>--}}
+            {{--                <div class="flex justify-between">--}}
+            {{--                    <span class="font-semibold">Anonymous</span>--}}
+            {{--                    <span class="text-gray-600">$500 · <a href="#" class="text-blue-500 underline">Top donation</a></span>--}}
+            {{--                </div>--}}
+            {{--                <div class="flex justify-between">--}}
+            {{--                    <span class="font-semibold">Rupinder Singh</span>--}}
+            {{--                    <span class="text-gray-600">$100 · <a href="#" class="text-blue-500 underline">First donation</a></span>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
 
-{{--            <div class="mt-4 flex gap-4">--}}
-{{--                <button class="text-blue-600 underline text-sm">See all</button>--}}
-{{--                <button class="text-blue-600 underline text-sm">See top</button>--}}
-{{--            </div>--}}
+            {{--            <div class="mt-4 flex gap-4">--}}
+            {{--                <button class="text-blue-600 underline text-sm">See all</button>--}}
+            {{--                <button class="text-blue-600 underline text-sm">See top</button>--}}
+            {{--            </div>--}}
         </div>
     </div>
+
+    {{--    modal--}}
+    <flux:modal name="donate" class="md:w-150">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">Donate</flux:heading>
+            </div>
+
+            <form wire:submit="save">
+
+                <flux:input class="mb-5" label="Amount" type="number" step="0.01" placeholder="$" wire:model="amount" />
+
+                <div class="flex">
+                    <flux:spacer />
+
+                    <flux:button type="submit" variant="primary">Submit</flux:button>
+                </div>
+            </form>
+
+        </div>
+    </flux:modal>
 </div>

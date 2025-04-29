@@ -10,7 +10,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-#[Layout('components.layouts.user')]
+#[Layout('components.layouts.app')]
 class Budget extends Component
 {
 

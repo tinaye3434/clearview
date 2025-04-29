@@ -16,7 +16,7 @@
         <div class="bg-white rounded-xl shadow overflow-hidden border">
             <img src="{{ asset('images/img1.jpg') }}" alt="Fundraiser Image" class="w-full h-48 object-contain">
             <div class="p-4">
-                <a href="{{ route('funding.detailed-view', $request->id) }}" class="font-semibold mb-2">{{ $request->title }}</a>
+                <a href="{{ route('donors.funding.detailed-view', $request->id) }}" class="font-semibold mb-2">{{ $request->title }}</a>
                 <div class="w-full h-2 bg-gray-200 rounded-full mb-2">
                     <div class="h-full bg-green-600 rounded-full w-[60%]"></div>
                 </div>

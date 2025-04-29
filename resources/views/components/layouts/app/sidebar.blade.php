@@ -14,9 +14,11 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('funding.index')" :current="request()->routeIs('funding.index')" wire:navigate>{{ __('Requests') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('funding.index')" :current="request()->routeIs('funding.index')" wire:navigate>{{ __('Approvals') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('funding.index')" :current="request()->routeIs('funding.index')" wire:navigate>{{ __('Responses') }}</flux:navlist.item>
+                    <flux:navlist.item icon="inbox-arrow-down" :href="route('funding.index')" :current="request()->routeIs('funding.index'|'funding.budget')" wire:navigate>{{ __('Requests') }}</flux:navlist.item>
+                    @if( \Illuminate\Support\Facades\Auth::user()->role == 'approver')
+                        <flux:navlist.item icon="check-badge" :href="route('funding.approval.index')" :current="request()->routeIs('funding.approval.index')" wire:navigate>{{ __('Approvals') }}</flux:navlist.item>
+                    @endif
+                    <flux:navlist.item icon="chat-bubble-left-right" :href="route('funding.response.index')" :current="request()->routeIs('funding.response.index')" wire:navigate>{{ __('Responses') }}</flux:navlist.item>
 
                 </flux:navlist.group>
             </flux:navlist>
@@ -29,15 +31,15 @@
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
-                </flux:navlist.item>
+{{--            <flux:navlist variant="outline">--}}
+{{--                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">--}}
+{{--                {{ __('Repository') }}--}}
+{{--                </flux:navlist.item>--}}
 
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits" target="_blank">
-                {{ __('Documentation') }}
-                </flux:navlist.item>
-            </flux:navlist>
+{{--                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits" target="_blank">--}}
+{{--                {{ __('Documentation') }}--}}
+{{--                </flux:navlist.item>--}}
+{{--            </flux:navlist>--}}
 
             <!-- Desktop User Menu -->
             <flux:dropdown position="bottom" align="start">

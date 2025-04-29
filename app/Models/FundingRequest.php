@@ -17,4 +17,9 @@ class FundingRequest extends Model
     {
         return $this->hasMany('App\Models\BudgetItem');
     }
+
+    public function budgetTotal()
+    {
+        return $this->hasMany('App\Models\BudgetItem')->sum('total_cost');
+    }
 }

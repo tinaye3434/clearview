@@ -8,14 +8,14 @@
     <flux:header container class="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
-        <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Acme Inc." class="max-lg:hidden dark:hidden" />
-        <flux:brand href="#" logo="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Acme Inc." class="max-lg:hidden! hidden dark:flex" />
+        <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Clear View Portal" class="max-lg:hidden dark:hidden" />
+        <flux:brand href="#" logo="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Clear View Portal" class="max-lg:hidden! hidden dark:flex" />
 
         <flux:navbar class="-mb-px max-lg:hidden">
-            <flux:navbar.item icon="home" :href="route('user.dashboard')" :current="request()->routeIs('user.dashboard')" wire:navigate>Home</flux:navbar.item>
-            <flux:navbar.item icon="document-text" :href="route('funding.index')" :current="request()->routeIs('funding.index')" wire:navigate>Funding Requests</flux:navbar.item>
-            <flux:navbar.item icon="inbox" badge="12" href="#">Funding Responses</flux:navbar.item>
-            <flux:navbar.item icon="calendar" href="#">Asset Management</flux:navbar.item>
+{{--            <flux:navbar.item icon="home" :href="route('user.dashboard')" :current="request()->routeIs('user.dashboard')" wire:navigate>Home</flux:navbar.item>--}}
+            <flux:navbar.item icon="home" :href="route('funding.index')" :current="request()->routeIs('funding.index')" wire:navigate>Home</flux:navbar.item>
+{{--            <flux:navbar.item icon="inbox" badge="12" href="#">Funding Responses</flux:navbar.item>--}}
+{{--            <flux:navbar.item icon="calendar" href="#">Asset Management</flux:navbar.item>--}}
 
             <flux:separator vertical variant="subtle" class="my-2"/>
 
@@ -32,11 +32,11 @@
 
         <flux:spacer />
 
-        <flux:navbar class="mr-4">
-            <flux:navbar.item icon="magnifying-glass" href="#" label="Search" />
-            <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="#" label="Settings" />
-            <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#" label="Help" />
-        </flux:navbar>
+{{--        <flux:navbar class="mr-4">--}}
+{{--            <flux:navbar.item icon="magnifying-glass" href="#" label="Search" />--}}
+{{--            <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="#" label="Settings" />--}}
+{{--            <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#" label="Help" />--}}
+{{--        </flux:navbar>--}}
 
         <flux:dropdown position="top" align="start">
             <flux:profile avatar="https://fluxui.dev/img/demo/user.png" />

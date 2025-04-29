@@ -17,7 +17,7 @@ class Index extends Component
     use WithFileUploads;
 
     public $image;
-    public $user_id;
+    public $organisation_id;
 
     #[Validate('required|string')]
     public $title = '';
@@ -30,7 +30,7 @@ class Index extends Component
     public function mount(FundingRequest $fundingRequest)
     {
         $this->fundingRequest = $fundingRequest;
-        $this->user_id = Auth::user()->id;
+        $this->organisation_id = Auth::user()->organisation_id;
 
     }
 
@@ -46,7 +46,7 @@ class Index extends Component
         $this->fundingRequest->create([
             'title' => $this->title,
             'description' => $this->description,
-            'user_id' => $this->user_id,
+            'organisation_id' => $this->organisation_id,
         ]);
 
         if ($this->image) {

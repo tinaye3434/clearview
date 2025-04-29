@@ -31,6 +31,7 @@
             </thead>
             <tbody>
                 @forelse($results as $item)
+
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td class="px-6 py-4">
                             <img class="rounded-full w-10 h-10" alt="logo" src="{{ asset('images/img1.jpg') }}">
@@ -42,7 +43,7 @@
                         {{ $item->description }}
                     </td>
                         <td class="px-6 py-4">
-                        {{ $item->amount }}
+                        {{ $item->budgetTotal() }}
                     </td>
                         <td class="px-6 py-4">
                         @if($item->is_funded)
@@ -52,9 +53,13 @@
                         @endif
                     </td>
                         <td class="px-6 py-4 text-right">
-                            <button wire:click="editRequest({{ $item->id }})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
-                            <a href="{{ route('funding.budget', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Budget</a>
+                            @if($item->is_approved == 0)
+                                <button wire:click="editRequest({{ $item->id }})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
+                                <a href="{{ route('funding.budget', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Budget</a>
+                            @endif
+
                             <a href="{{ route('funding.detailed-view', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+
                         </td>
                     </tr>
                 @empty

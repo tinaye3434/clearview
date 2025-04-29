@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('funding_requests', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('organisation_id');
             $table->string('title');
             $table->text('description');
             $table->double('amount')->default(0);

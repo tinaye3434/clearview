@@ -14,7 +14,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.donors.funding-request.index', [
-            'fundingRequests' => FundingRequest::where('is_funded', 0)->paginate(3),
+            'fundingRequests' => FundingRequest::where('is_approved', 1)->paginate(3),
         ]);
     }
 }
