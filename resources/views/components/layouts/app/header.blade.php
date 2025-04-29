@@ -13,21 +13,21 @@
 
         <flux:navbar class="-mb-px max-lg:hidden">
 {{--            <flux:navbar.item icon="home" :href="route('user.dashboard')" :current="request()->routeIs('user.dashboard')" wire:navigate>Home</flux:navbar.item>--}}
-            <flux:navbar.item icon="home" :href="route('funding.index')" :current="request()->routeIs('funding.index')" wire:navigate>Home</flux:navbar.item>
+            <flux:navbar.item icon="home" :href="route('donor.funding.index')" :current="request()->routeIs('funding.index')" wire:navigate>Home</flux:navbar.item>
 {{--            <flux:navbar.item icon="inbox" badge="12" href="#">Funding Responses</flux:navbar.item>--}}
 {{--            <flux:navbar.item icon="calendar" href="#">Asset Management</flux:navbar.item>--}}
 
             <flux:separator vertical variant="subtle" class="my-2"/>
 
-            <flux:dropdown class="max-lg:hidden">
-                <flux:navbar.item icon-trailing="chevron-down">Reports</flux:navbar.item>
+{{--            <flux:dropdown class="max-lg:hidden">--}}
+{{--                <flux:navbar.item icon-trailing="chevron-down">Reports</flux:navbar.item>--}}
 
-                <flux:navmenu>
-                    <flux:navmenu.item href="#">Marketing site</flux:navmenu.item>
-                    <flux:navmenu.item href="#">Android app</flux:navmenu.item>
-                    <flux:navmenu.item href="#">Brand guidelines</flux:navmenu.item>
-                </flux:navmenu>
-            </flux:dropdown>
+{{--                <flux:navmenu>--}}
+{{--                    <flux:navmenu.item href="#">Marketing site</flux:navmenu.item>--}}
+{{--                    <flux:navmenu.item href="#">Android app</flux:navmenu.item>--}}
+{{--                    <flux:navmenu.item href="#">Brand guidelines</flux:navmenu.item>--}}
+{{--                </flux:navmenu>--}}
+{{--            </flux:dropdown>--}}
         </flux:navbar>
 
         <flux:spacer />
@@ -49,7 +49,13 @@
 
                 <flux:menu.separator />
 
-                <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
+                <form method="POST" action="{{ route('logout') }}" class="w-full">
+                    @csrf
+                    <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">
+                        {{ __('Log Out') }}
+                    </flux:menu.item>
+                </form>
+{{--                <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>--}}
             </flux:menu>
         </flux:dropdown>
     </flux:header>

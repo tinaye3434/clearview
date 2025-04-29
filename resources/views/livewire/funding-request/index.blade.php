@@ -88,7 +88,7 @@
                     <img alt="image" src="{{ $image->temporaryUrl() }}">
                 @endif
 
-                <flux:input type="hidden" wire:model="user_id" value="{{ $user_id }}"/>
+                <flux:input type="hidden" wire:model="organisation_id" value="{{ $organisation_id }}"/>
 
                 <flux:input type="file" wire:model="image" label="Image"/>
 

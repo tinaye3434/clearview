@@ -44,12 +44,12 @@ class Login extends Component
         Session::regenerate();
 
 //        dd(Auth::user());
-        if (Auth::user()->is_admin == 1 && Auth::user()->is_donor == 0)
+        if (Auth::user()->is_donor == 0)
         {
             $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        } else {
+            $this->redirectIntended(default: route('donor.funding.index', absolute: false), navigate: true);
         }
-
-        $this->redirectIntended(default: route('user.dashboard', absolute: false), navigate: true);
 
     }
 
