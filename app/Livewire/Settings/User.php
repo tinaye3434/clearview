@@ -5,6 +5,7 @@ namespace App\Livewire\Settings;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 use phpDocumentor\Reflection\Types\Integer;
 
@@ -13,6 +14,7 @@ class User extends Component
     public $name;
     public $email;
     public $role;
+
     public function mount()
     {
 
@@ -20,7 +22,7 @@ class User extends Component
 
     public function render()
     {
-        $results = \App\Models\User::all();
+        $results = \App\Models\User::where('organisation_id', Auth::user()->organisation_id)->get();
         return view('livewire.settings.user', compact('results'));
     }
 
@@ -38,8 +40,13 @@ class User extends Component
 
         Flux::modals()->close();
 
-        session()->flash('message', 'Post successfully updated.');
+//        return redirect()->route('settings.user');
 
-        return redirect()->route('settings.user');
+        LivewireAlert::title('Success')
+            ->text('Operation completed successfully.')
+            ->position('center')
+            ->success()
+            ->timer(3000)
+            ->show();
     }
 }

@@ -8,9 +8,9 @@ class FundingRequest extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function user()
+    public function organisation()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\OrganisationDetail', 'organisation_id');
     }
 
     public function budgetItems()

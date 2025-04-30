@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Spatie\ModelInfo\ModelInfo;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
+use Jantinnerezo\LivewireAlert\Enums\Position;
 
 trait isBudget
 {
@@ -104,6 +105,12 @@ trait isBudget
                 }
             }
 
+            LivewireAlert::title('Success')
+                ->text('Operation completed successfully.')
+                ->position('center')
+                ->success()
+                ->timer(3000)
+                ->show();
 
 //            $this->alert('success', 'Created Records successfully!', [
 //                'position' => 'center'

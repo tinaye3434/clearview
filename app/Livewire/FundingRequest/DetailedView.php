@@ -4,6 +4,7 @@ namespace App\Livewire\FundingRequest;
 
 use App\Models\FundingRequest;
 use Illuminate\Support\Facades\Auth;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -33,6 +34,14 @@ class DetailedView extends Component
                 'approver_id' => Auth::user()->id
             ]);
 //        }
-        session()->flash('message', 'Post successfully updated.');
+
+        $this->js('window.location.reload()');
+
+        LivewireAlert::title('Success')
+            ->text('Operation completed successfully.')
+            ->position('center')
+            ->success()
+            ->timer(3000)
+            ->show();
     }
 }

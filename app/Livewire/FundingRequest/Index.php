@@ -5,6 +5,7 @@ namespace App\Livewire\FundingRequest;
 use App\Models\FundingRequest;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -36,7 +37,7 @@ class Index extends Component
 
     public function render()
     {
-        $results = FundingRequest::all();
+        $results = FundingRequest::where('organisation_id', $this->organisation_id)->get();
         return view('livewire.funding-request.index', compact('results'));
     }
 
@@ -57,6 +58,13 @@ class Index extends Component
         }
 
         Flux::modals()->close();
+
+        LivewireAlert::title('Success')
+            ->text('Operation completed successfully.')
+            ->position('center')
+            ->success()
+            ->timer(3000)
+            ->show();
 
     }
 

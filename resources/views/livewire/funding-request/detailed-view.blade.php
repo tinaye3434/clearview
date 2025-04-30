@@ -20,7 +20,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A4 4 0 014 14V7a4 4 0 014-4h8a4 4 0 014 4v7a4 4 0 01-1.121 2.804M15 21H9m6 0a3 3 0 11-6 0" />
                 </svg>
-                <p>{{ $fundingRequest->user->name }} is organising this fundraiser.</p>
+                <p>{{ $fundingRequest->organisation->name }} is organising this fundraiser.</p>
             </div>
 
             <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
@@ -93,9 +93,9 @@
             </div>
 
             <div class="space-y-2 mb-4">
-                <button wire:click="approve({{ $fundingRequest->id }})" class="w-full bg-yellow-400 hover:bg-yellow-300 text-white font-bold py-2 rounded">Approve</button>
+{{--                <button wire:click="approve({{ $fundingRequest->id }})" class="w-full bg-yellow-400 hover:bg-yellow-300 text-white font-bold py-2 rounded">Approve</button>--}}
                 @if( \Illuminate\Support\Facades\Auth::user()->role == 'approver' &&  $fundingRequest->is_approved == 0)
-                    <button class="w-full bg-yellow-400 hover:bg-yellow-300 text-white font-bold py-2 rounded">Approve</button>
+                    <button wire:click="approve({{ $fundingRequest->id }})" class="w-full bg-yellow-400 hover:bg-yellow-300 text-white font-bold py-2 rounded">Approve</button>
                 @endif
 {{--                <button class="w-full bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 rounded">Donate now</button>--}}
             </div>

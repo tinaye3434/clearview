@@ -20,7 +20,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A4 4 0 014 14V7a4 4 0 014-4h8a4 4 0 014 4v7a4 4 0 01-1.121 2.804M15 21H9m6 0a3 3 0 11-6 0" />
                 </svg>
-                <p>{{ $fundingRequest->user->name }} is organising this fundraiser.</p>
+                <p>{{ $fundingRequest->organisation->name }} is organising this fundraiser.</p>
             </div>
 
             <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
@@ -77,6 +77,12 @@
                         </tr>
                     @endforelse
                     </tbody>
+                    <tfoot>
+                    <tr class="px-6 py-4">
+                        <th colspan="3" class="px-6 py-4">Totals</th>
+                        <td class="px-6 py-4"> <span style="text-decoration: underline double;">{{ $fundingRequest->budgetTotal() }}</span></td>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
 
@@ -130,14 +136,26 @@
                 <flux:heading size="lg">Donate</flux:heading>
             </div>
 
-            <form wire:submit="save">
+            <form wire:submit="donate">
 
-                <flux:input class="mb-5" label="Amount" type="number" step="0.01" placeholder="$" wire:model="amount" />
+                <flux:field>
+                    <flux:label>Amount</flux:label>
+
+                    <flux:input.group>
+                        <flux:input.group.prefix>$</flux:input.group.prefix>
+
+                        <flux:input wire:model="amount" step="0.01" placeholder="99.99" />
+                    </flux:input.group>
+
+                    <flux:error name="amount" />
+                </flux:field>
+
+{{--                <flux:input class="mb-5" label="Amount" type="number" step="0.01" placeholder="$" wire:model="amount" />--}}
 
                 <div class="flex">
                     <flux:spacer />
 
-                    <flux:button type="submit" variant="primary">Submit</flux:button>
+                    <flux:button class="mt-5" type="submit" variant="primary">Submit</flux:button>
                 </div>
             </form>
 

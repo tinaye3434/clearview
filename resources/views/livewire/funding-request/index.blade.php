@@ -37,10 +37,10 @@
                             <img class="rounded-full w-10 h-10" alt="logo" src="{{ asset('images/img1.jpg') }}">
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->title }}
+                            {{ mb_strimwidth($item->title, 0, 30, "...") }}
                         </td>
                         <td class="px-6 py-4">
-                        {{ $item->description }}
+                        {{ mb_strimwidth($item->description, 0, 50, "...")  }}
                     </td>
                         <td class="px-6 py-4">
                         {{ $item->budgetTotal() }}
