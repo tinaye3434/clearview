@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedInteger('organisation_id');
             $table->string('title');
             $table->text('description');
-            $table->double('amount')->default(0);
+            $table->double('target_amount')->default(0);
+            $table->double('raised_amount')->default(0);
             $table->string('status')->default('pending');
             $table->boolean('is_funded')->default(false);
             $table->string('image')->nullable();

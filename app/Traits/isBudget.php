@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\FundingRequest;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,6 +21,8 @@ trait isBudget
 //    public ReportList $report;
 //    public ReportSubmission $submission;
 //    public $reports_list = [];
+
+
 
     public $model_info;
 
@@ -56,6 +59,7 @@ trait isBudget
 
     public function save(): void
     {
+        $total_cost = 0;
         foreach ($this->entries as $key => $entry) {
 
             if($this->checkInputs($entry)){
@@ -73,6 +77,7 @@ trait isBudget
             if($entry['id'] == "" | $entry['id'] == 0 ){
 
                 $created = $model->create($entry);
+                $total_cost += $created->total_cost;
 
                 $this->entries[$key]['id'] = $created->id;
             } else  {
@@ -82,7 +87,14 @@ trait isBudget
                 $model->where(function (Builder $query) use ($id) {
                     $query->where('id', $id);
                 })->where('id', $id)->update($entry);
+
+                $total_cost += $entry['total_cost'];
             }
+
+            $request = FundingRequest::find($entry['funding_request_id']);
+            $request->update([
+                'target_amount' => $total_cost,
+            ]);
 
             if(isset($this->fields_to_create)){
                 foreach ($this->fields_to_create as $field) {

@@ -43,7 +43,7 @@
                         {{ mb_strimwidth($item->description, 0, 50, "...")  }}
                     </td>
                         <td class="px-6 py-4">
-                        {{ $item->budgetTotal() }}
+                        {{ $item->target_amount }}
                     </td>
                         <td class="px-6 py-4">
                         @if($item->is_funded)

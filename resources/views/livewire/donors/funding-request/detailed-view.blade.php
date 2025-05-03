@@ -91,8 +91,8 @@
         <!-- Right Column -->
         <div class="w-full lg:w-1/3 sticky top-6 h-fit bg-gray-50 p-4 rounded-lg border shadow-sm">
             <div class="mb-4">
-                <h2 class="text-2xl font-bold">$35,071 CAD raised</h2>
-                <p class="text-gray-600 text-sm">$50K target · 1.4K donations</p>
+                <h2 class="text-2xl font-bold">${{ $fundingRequest->raised_amount }} raised</h2>
+                <p class="text-gray-600 text-sm">${{ $fundingRequest->target_amount }} target · {{ $fundingRequest->target_amount - $fundingRequest->raised_amount }} remaining</p>
                 <div class="relative w-full bg-gray-200 h-3 mt-2 rounded-full">
                     <div class="absolute top-0 left-0 h-3 bg-green-500 rounded-full" style="width: 70%;"></div>
                 </div>
