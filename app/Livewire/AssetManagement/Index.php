@@ -19,6 +19,7 @@ class Index extends Component
     public $purchase_price;
     public $purchase_date;
     public $assigned_to;
+    public $supplier_id;
 
     public function mount()
     {
@@ -42,6 +43,7 @@ class Index extends Component
                 'assigned_to' => $this->assigned_to,
                 'organisation_id' => Auth::user()->organisation_id,
                 'asset_no' => date('Y').'-'.sprintf("%04d", $count+1),
+                'supplier_id' => $this->supplier_id,
             ]);
 
             Flux::modals()->close();

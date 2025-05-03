@@ -42,9 +42,9 @@
                     </td>
                     <td class="px-6 py-4">
                         @if($item->status == 'active')
-                            <flux:badge color="green">{{ $item->status }}</flux:badge>
+                            <flux:badge variant="solid" icon="check-badge" size="sm" color="green">{{ $item->status }}</flux:badge>
                         @else
-                            <flux:badge color="red">{{ $item->status }}</flux:badge>
+                            <flux:badge variant="solid" icon="exclamation-circle" size="sm" color="rose">{{ $item->status }}</flux:badge>
                         @endif
                     </td>
                     <td class="px-6 py-4 text-right">
@@ -93,7 +93,7 @@
                         <flux:input wire:model="purchase_price" type="number" step="0.01" label="Purchase Price" required/>
                         <flux:input wire:model="purchase_date" type="date" label="Purchase Date" required />
                         <flux:input wire:model="assigned_to" label="Assigned To" required />
-                        <flux:select wire:model="supplier" label="Supplier" required>
+                        <flux:select wire:model="supplier_id" label="Supplier" required>
                             <option value="">-- Select --</option>
                             @foreach($suppliers as $supplier)
                                 <option value="{{ $supplier->id }}"> {{ $supplier->name }} </option>

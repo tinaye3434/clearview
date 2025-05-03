@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('creators/funding-request/approvals', \App\Livewire\FundingRequest\Approval::class)->name('funding.approval.index');
     Route::get('creators/funding-request/responses', \App\Livewire\FundingRequest\Response::class)->name('funding.response.index');
     Route::get('creators/asset-management/index', \App\Livewire\AssetManagement\Index::class)->name('asset.index');
+    Route::get('creators/asset-management/view/{asset}', \App\Livewire\AssetManagement\DetailedView::class)->name('asset.view');
 
 
     Route::get('funding-request/index', \App\Livewire\Donors\FundingRequest\Index::class)->name('donor.funding.index');

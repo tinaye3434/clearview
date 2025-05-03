@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('purchase_date');
             $table->string('assigned_to');
             $table->string('status')->default('active');
+            $table->unsignedBigInteger('supplier_id');
             $table->unsignedBigInteger('organisation_id');
             $table->timestamps();
         });
