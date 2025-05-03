@@ -4,35 +4,32 @@ namespace App\Livewire\Settings;
 
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
-use phpDocumentor\Reflection\Types\Integer;
 
-class User extends Component
+class Supplier extends Component
 {
     public $name;
     public $email;
-    public $role;
-    public $user_id;
+    public $phone;
+    public $address;
+    public $supplier_id;
 
 
     public function render()
     {
-        $results = \App\Models\User::where('organisation_id', Auth::user()->organisation_id)->get();
-        return view('livewire.settings.user', compact('results'));
+        $results = \App\Models\Supplier::where('organisation_id', Auth::user()->organisation_id)->get();
+        return view('livewire.settings.supplier', compact('results'));
     }
 
     public function save()
     {
-        \App\Models\User::create([
+        \App\Models\Supplier::create([
             'name' => $this->name,
             'email' => $this->email,
-            'role' => strtolower($this->role),
-            'password' => Hash::make('password'),
-            'organisation_id' => Auth::user()->organisation_id,
-            'is_donor' => Auth::user()->is_donor,
-            'is_admin' => strtolower($this->role) == 'admin' ? true : false,
+            'phone' => $this->phone,
+            'address' => $this->address,
+            'organisation_id' => Auth::user()->organisation_id
         ]);
 
         Flux::modals()->close();
@@ -47,23 +44,26 @@ class User extends Component
             ->show();
     }
 
-    public function edit(\App\Models\User $user)
+    public function edit(\App\Models\Supplier $supplier)
     {
-        $this->name = $user->name;
-        $this->email = $user->email;
-        $this->role = $user->role;
-        $this->user_id = $user->id;
+        $this->name = $supplier->name;
+        $this->email = $supplier->email;
+        $this->address = $supplier->address;
+        $this->phone = $supplier->phone;
+        $this->supplier_id = $supplier->id;
 
-        Flux::modal('edit-user')->show();
+        Flux::modal('edit-supplier')->show();
     }
+
     public function update()
     {
         Flux::modals()->close();
 
-        \App\Models\User::where('id', $this->user_id)->update([
+        \App\Models\Supplier::where('id', $this->supplier_id)->update([
             'name' => $this->name,
             'email' => $this->email,
-            'role' => strtolower($this->role),
+            'address' => $this->address,
+            'phone' => $this->phone,
         ]);
 
         $this->js('window.location.reload()');
@@ -76,10 +76,10 @@ class User extends Component
             ->show();
     }
 
-    public function deactivate(\App\Models\User $user)
+    public function deactivate(\App\Models\Supplier $supplier)
     {
-        $user->update([
-            'status' => 0
+        $supplier->update([
+            'status' => 'inactive'
         ]);
 
         $this->js('window.location.reload()');
@@ -91,10 +91,11 @@ class User extends Component
             ->timer(3000)
             ->show();
     }
-    public function activate(\App\Models\User $user)
+
+    public function activate(\App\Models\Supplier $supplier)
     {
-        $user->update([
-            'status' => 1
+        $supplier->update([
+            'status' => 'active'
         ]);
 
         $this->js('window.location.reload()');
