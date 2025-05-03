@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('purchase_price');
             $table->date('purchase_date');
             $table->string('assigned_to');
-            $table->string('status');
+            $table->string('status')->default('active');
             $table->unsignedBigInteger('organisation_id');
             $table->timestamps();
         });

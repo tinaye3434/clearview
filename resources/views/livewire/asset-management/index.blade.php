@@ -38,7 +38,7 @@
                         {{ mb_strimwidth($item->name, 0, 50, "...")  }}
                     </td>
                     <td class="px-6 py-4">
-                        {{ $item->date_purchased }}
+                        {{ $item->purchase_date }}
                     </td>
                     <td class="px-6 py-4">
                         @if($item->status == 'active')
@@ -48,9 +48,9 @@
                         @endif
                     </td>
                     <td class="px-6 py-4 text-right">
-                        <flux:button variant="primary" class="w-full">View</flux:button>
-                        <flux:button variant="primary" class="w-full">Edit</flux:button>
-                        <flux:button variant="primary" class="w-full">Change Owner</flux:button>
+                        <flux:button variant="primary" size="xs" class="w-full">View</flux:button>
+                        <flux:button variant="filled" size="xs" class="w-full mt-2">Edit</flux:button>
+                        <flux:button variant="danger" size="xs" class="w-full mt-2">Change Owner</flux:button>
 
 {{--                        <button wire:click="editRequest({{ $item->id }})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>--}}
 
@@ -80,30 +80,36 @@
             </flux:text>
         </div>
 
-        <flux:fieldset>
-            <flux:legend>Asset Details</flux:legend>
+        <form wire:submit="save">
 
-            <div class="space-y-6">
-                <flux:input label="Name" class="max-w-sm" />
-                <flux:input label="Description" class="max-w-sm" />
+            <flux:fieldset>
+                <flux:legend>Asset Details</flux:legend>
 
-                <div class="grid grid-cols-2 gap-x-4 gap-y-6">
-                    <flux:input label="Purchase Price" placeholder="San Francisco" />
-                    <flux:input label="Purchase Date" placeholder="CA" />
-                    <flux:input label="Assigned To" placeholder="12345" />
-                    <flux:select label="Supplier">
-                        <option selected>United States</option>
-                        <!-- ... -->
-                    </flux:select>
+                <div class="space-y-6">
+                    <flux:input wire:model="name" label="Name" class="max-w-sm" required />
+                    <flux:input wire:model="description" label="Description" class="max-w-sm" required />
+
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-6">
+                        <flux:input wire:model="purchase_price" type="number" step="0.01" label="Purchase Price" required/>
+                        <flux:input wire:model="purchase_date" type="date" label="Purchase Date" required />
+                        <flux:input wire:model="assigned_to" label="Assigned To" required />
+                        <flux:select wire:model="supplier" label="Supplier" required>
+                            <option value="">-- Select --</option>
+                            @foreach($suppliers as $supplier)
+                                <option value="{{ $supplier->id }}"> {{ $supplier->name }} </option>
+                            @endforeach
+                        </flux:select>
+                    </div>
                 </div>
+            </flux:fieldset>
+
+            <div class="flex mt-4">
+                <flux:spacer />
+
+                <flux:button type="submit" variant="primary">Save changes</flux:button>
             </div>
-        </flux:fieldset>
 
-        <div class="flex mt-4">
-            <flux:spacer />
-
-            <flux:button type="submit" variant="primary">Save changes</flux:button>
-        </div>
+        </form>
 
     </flux:modal>
 </div>
