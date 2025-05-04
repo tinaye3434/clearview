@@ -23,15 +23,15 @@
 
                         <div class="grid grid-cols-2 gap-x-4 gap-y-6">
 
-                            <flux:input label="Name" description="The name of the asset" value="{{ $asset->name }}" />
-                            <flux:input wire:model="description" label="Description" description="A short description of the asset, including the specs" value="{{ $asset->description }}" />
-                            <flux:input wire:model="purchase_price" type="number" description="The cost of buying the asset" step="0.01" label="Purchase Price" value="{{ $asset->purchase_price }}" />
-                            <flux:input wire:model="purchase_date" type="date" description="The date when the asset was acquired" label="Purchase Date" value="{{ $asset->purchase_date }}" />
-                            <flux:input wire:model="assigned_to" label="Assigned To" description="The person who is possession of the asset currently" value="{{ $asset->assigned_to }}" />
-                            <flux:select wire:model="supplier" label="Supplier" description="The name of the company from which the asset was bought from" required>
+                            <flux:input wire:model="name" label="Name" description="The name of the asset" required />
+                            <flux:input wire:model="description" label="Description" description="A short description of the asset, including the specs" required />
+                            <flux:input wire:model="purchase_price" type="number" description="The cost of buying the asset" step="0.01" label="Purchase Price" required />
+                            <flux:input wire:model="purchase_date" type="date" description="The date when the asset was acquired" label="Purchase Date" required />
+                            <flux:input wire:model="assigned_to" label="Assigned To" description="The person who is possession of the asset currently" required />
+                            <flux:select wire:model="supplier_id" label="Supplier" description="The name of the company from which the asset was bought from" required>
                                 <option value="">-- Select --</option>
                                 @foreach($suppliers as $supplier)
-                                    <option value="{{ $supplier->id }}" @if($supplier->id == $asset->supplier_id) selected @endif> {{ $supplier->name }} </option>
+                                    <option value="{{ $supplier->id }}" @if($supplier->id == $supplier_id) selected @endif> {{ $supplier->name }} </option>
                                 @endforeach
                             </flux:select>
 
@@ -50,7 +50,25 @@
             </flux:fieldset>
         </div>
         <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+
+
+            <ol class="relative border-s border-gray-200 dark:border-gray-700">
+                @foreach($logs as $item)
+                <li class="mb-10 ms-4">
+                    <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                    <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{ $item->updated_at->format('d F Y') }}</time>
+                    @if($item->action_type == 'change')
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Change of Ownership</h3>
+                    @else
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Disposal</h3>
+                    @endif
+                    <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">{{ $item->comment }}</p>
+                </li>
+                @endforeach
+
+            </ol>
+
+
         </div>
     </div>
 

@@ -48,9 +48,9 @@
                         @endif
                     </td>
                     <td class="px-6 py-4 text-right">
-                        <flux:button variant="primary" size="xs" class="w-full">View</flux:button>
-                        <flux:button variant="filled" size="xs" class="w-full mt-2">Edit</flux:button>
-                        <flux:button variant="danger" size="xs" class="w-full mt-2">Change Owner</flux:button>
+                        <flux:button href="{{ route('asset.view', $item->id) }}" icon="eye" variant="primary" size="xs" class="w-full">View</flux:button>
+                        <flux:button wire:click="change_modal({{ $item->id }})" variant="filled" icon="users" size="xs" class="w-full mt-2">Change Owner</flux:button>
+                        <flux:button wire:click="dispose_modal({{ $item->id }})" variant="danger" icon="trash" size="xs" class="w-full mt-2">Dispose</flux:button>
 
 {{--                        <button wire:click="editRequest({{ $item->id }})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>--}}
 
@@ -100,6 +100,67 @@
                             @endforeach
                         </flux:select>
                     </div>
+                </div>
+            </flux:fieldset>
+
+            <div class="flex mt-4">
+                <flux:spacer />
+
+                <flux:button type="submit" variant="primary">Save changes</flux:button>
+            </div>
+
+        </form>
+
+    </flux:modal>
+
+    <flux:modal name="change-ownership" class="md:w-150">
+        <div>
+            <flux:heading size="lg">Reassign Asset</flux:heading>
+            <flux:text class="my-2">
+                Reassign the asset to a different person
+            </flux:text>
+        </div>
+
+        <form wire:submit="change_ownership">
+
+            <flux:fieldset>
+                <div class="space-y-6">
+
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-6 mt-5">
+
+                        <flux:input wire:model="assigned_to" label="Current Owner" description="Name of current owner" readonly variant="filled" />
+                        <flux:input wire:model="new_owner" label="New Owner" description="Name of proposed new owner" required />
+
+                    </div>
+
+                    <flux:input wire:model="comment" label="Comment" description="Briefly explain as to why this change" class="w-full" required />
+
+                </div>
+            </flux:fieldset>
+
+            <div class="flex mt-4">
+                <flux:spacer />
+
+                <flux:button type="submit" variant="primary">Save changes</flux:button>
+            </div>
+
+        </form>
+
+    </flux:modal>
+
+    <flux:modal name="disposal-modal" class="md:w-120">
+
+        <div>
+            <flux:heading size="lg" class="mb-5">Dispose Asset</flux:heading>
+
+        </div>
+
+        <form wire:submit="dispose">
+
+            <flux:fieldset>
+
+                <div class="space-y-6">
+                    <flux:input wire:model="comment" label="Comment" description="Give a reason as to why the asset is being disposed" class="w-full" required />
                 </div>
             </flux:fieldset>
 

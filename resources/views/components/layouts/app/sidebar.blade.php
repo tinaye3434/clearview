@@ -19,7 +19,13 @@
                         <flux:navlist.item icon="check-badge" :href="route('funding.approval.index')" :current="request()->routeIs('funding.approval.index')" wire:navigate>{{ __('Approvals') }}</flux:navlist.item>
                     @endif
                     <flux:navlist.item icon="chat-bubble-left-right" :href="route('funding.response.index')" :current="request()->routeIs('funding.response.index')" wire:navigate>{{ __('Responses') }}</flux:navlist.item>
+{{--                    <flux:navlist.item icon="clipboard-document-list" :href="route('asset.index')" :current="request()->routeIs('asset.index')" wire:navigate>{{ __('Asset Management') }}</flux:navlist.item>--}}
 
+                    <flux:navlist.group icon="clipboard-document-list" heading="Asset Management" expandable :expanded="false">
+                        <flux:navlist.item :href="route('asset.index')" :current="request()->routeIs('asset.index')" wire:navigate>{{ __('Manage') }}</flux:navlist.item>
+                        <flux:navlist.item :href="route('asset.approvals')" :current="request()->routeIs('asset.approvals')" wire:navigate>{{ __('Approvals') }}</flux:navlist.item>
+                        <flux:navlist.item :href="route('asset.disposed')" :current="request()->routeIs('asset.disposed')" wire:navigate>{{ __('Disposed Assets') }}</flux:navlist.item>
+                    </flux:navlist.group>
                 </flux:navlist.group>
             </flux:navlist>
 

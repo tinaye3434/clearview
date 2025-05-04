@@ -33,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('creators/funding-request/responses', \App\Livewire\FundingRequest\Response::class)->name('funding.response.index');
     Route::get('creators/asset-management/index', \App\Livewire\AssetManagement\Index::class)->name('asset.index');
     Route::get('creators/asset-management/view/{asset}', \App\Livewire\AssetManagement\DetailedView::class)->name('asset.view');
+    Route::get('creators/asset-management/approvals', \App\Livewire\AssetManagement\AssetApproval::class)->name('asset.approvals');
+    Route::get('creators/asset-management/disposed-assets', \App\Livewire\AssetManagement\DisposedAssets::class)->name('asset.disposed');
 
 
     Route::get('funding-request/index', \App\Livewire\Donors\FundingRequest\Index::class)->name('donor.funding.index');
