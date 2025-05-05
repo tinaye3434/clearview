@@ -3,6 +3,7 @@
 namespace App\Livewire\FundingRequest;
 
 use App\Models\Donation;
+use App\Models\Ledger;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Attributes\Layout;
@@ -26,6 +27,13 @@ class Response extends Component
     {
         $donation->update([
             'status' => 'accepted'
+        ]);
+
+        Ledger::create([
+            'description' => 'Donation from '. $donation->donor->name,
+            'amount' => $donation->amount,
+            'is_income' => true,
+            'request_id' => $donation->funding_request_id,
         ]);
 
         $total_donated = $donation->request->amount + $donation->amount;

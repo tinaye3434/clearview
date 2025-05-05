@@ -22,4 +22,5 @@ class Donation extends Model
     {
         return $this->belongsTo(FundingRequest::class, 'funding_request_id');
     }
+
 }

@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class BudgetItem extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function fundingRequest()
+    {
+        return $this->belongsTo('App\Models\FundingRequest');
+    }
 }

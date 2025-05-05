@@ -19,7 +19,9 @@ return new class extends Migration
             $table->double('unit_cost');
             $table->double('quantity');
             $table->double('total_cost');
+            $table->double('actual_cost')->nullable();
             $table->boolean('status')->default(true);
+            $table->boolean('is_purchased')->default(false);
             $table->timestamps();
         });
     }
