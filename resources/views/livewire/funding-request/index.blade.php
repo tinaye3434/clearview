@@ -47,18 +47,25 @@
                     </td>
                         <td class="px-6 py-4">
                         @if($item->is_funded)
-                                <flux:badge color="green">Yes</flux:badge>
+                                <flux:badge variant="pill" icon="check-badge" color="green">Yes</flux:badge>
                         @else
-                                <flux:badge color="red">No</flux:badge>
+                                <flux:badge variant="pill" icon="exclamation-circle" color="red">No</flux:badge>
                         @endif
                     </td>
                         <td class="px-6 py-4 text-right">
                             @if($item->is_approved == 0)
-                                <button wire:click="editRequest({{ $item->id }})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
-                                <a href="{{ route('funding.budget', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Budget</a>
+                                <flux:button wire:click="editRequest({{ $item->id }})" size="xs" class="w-full mb-2">Edit</flux:button>
+                                <flux:button href="{{ route('funding.budget', $item->id) }}" size="xs" variant="primary" class="w-full mb-2">Budget</flux:button>
                             @endif
 
-                            <a href="{{ route('funding.detailed-view', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                            <flux:button href="{{ route('funding.detailed-view', $item->id) }}" size="xs" variant="filled" class="w-full mb-2">View</flux:button>
+
+{{--                        @if($item->is_approved == 0)--}}
+{{--                                <button wire:click="editRequest({{ $item->id }})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>--}}
+{{--                                <a href="" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Budget</a>--}}
+{{--                            @endif--}}
+
+{{--                            <a href="{{ route('funding.detailed-view', $item->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>--}}
 
                         </td>
                     </tr>
@@ -90,17 +97,47 @@
 
                 <flux:input type="hidden" wire:model="organisation_id" value="{{ $organisation_id }}"/>
 
-                <flux:input type="file" wire:model="image" label="Image"/>
+                <flux:input type="file" wire:model="image" class="mb-2" accept=".png, .jpg, .jpeg" label="Image"/>
 
-                <flux:input label="Title" placeholder="Your Title" wire:model="title" />
+                <flux:input label="Title" placeholder="Your Title" class="mb-2" wire:model="title" />
 
                 <flux:textarea label="Description" placeholder="Your Description" wire:model="description" />
 
-                    <div class="flex">
+                    <div class="flex mt-5">
                         <flux:spacer />
 
                         <flux:button type="submit" variant="primary">Save changes</flux:button>
                     </div>
+            </form>
+
+        </div>
+    </flux:modal>
+
+    <flux:modal name="edit-request" class="md:w-150">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">Edit Fund Request</flux:heading>
+            </div>
+
+            <form wire:submit="update">
+                @if ($image)
+                    Image Preview:
+                    <img alt="image" src="{{ $image->temporaryUrl() }}">
+                @endif
+
+                <flux:input type="hidden" wire:model="organisation_id" value="{{ $organisation_id }}"/>
+
+                <flux:input type="file" wire:model="image" class="mb-2" accept=".png, .jpg, .jpeg" label="Image"/>
+
+                <flux:input label="Title" placeholder="Your Title" class="mb-2" wire:model="title" />
+
+                <flux:textarea label="Description" placeholder="Your Description" wire:model="description" />
+
+                <div class="flex mt-5">
+                    <flux:spacer />
+
+                    <flux:button type="submit" variant="primary">Save changes</flux:button>
+                </div>
             </form>
 
         </div>

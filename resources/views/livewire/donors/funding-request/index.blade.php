@@ -1,7 +1,7 @@
 <div>
     <!-- Search Bar -->
     <div class="w-full flex justify-center mt-6 mb-8">
-        <input type="text" placeholder="Search" class="w-3/4 max-w-xl px-5 py-3 rounded-full border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+        <input wire:model.live="search" type="text" placeholder="Search" class="w-3/4 max-w-xl px-5 py-3 rounded-full border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500">
     </div>
 
     <div class="w-full flex justify-end mt-6 mb-8">
@@ -18,9 +18,9 @@
             <div class="p-4">
                 <a href="{{ route('donors.funding.detailed-view', $request->id) }}" class="font-semibold mb-2">{{ $request->title }}</a>
                 <div class="w-full h-2 bg-gray-200 rounded-full mb-2">
-                    <div class="h-full bg-green-600 rounded-full w-[60%]"></div>
+                    <div class="h-full bg-green-600 rounded-full" style="width: {{ $request->funding_progress }}%"></div>
                 </div>
-                <p class="text-sm font-medium">£20,818 raised</p>
+                <p class="text-sm font-medium">${{ $request->raised_amount }} raised</p>
             </div>
         </div>
         @endforeach

@@ -11,10 +11,11 @@ use Livewire\WithPagination;
 class Index extends Component
 {
 
+    public $search = '';
     public function render()
     {
         return view('livewire.donors.funding-request.index', [
-            'fundingRequests' => FundingRequest::where('is_approved', 1)->paginate(3),
+            'fundingRequests' => FundingRequest::search('title', $this->search)->where('is_approved', 1)->where('is_funded', 0)->paginate(3),
         ]);
     }
 }

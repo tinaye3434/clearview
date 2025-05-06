@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->boolean('is_approved')->default(false);
             $table->unsignedInteger('approver_id')->nullable();
+            $table->integer('funding_progress')->default(0);
+            $table->integer('implementation_progress')->default(0);
             $table->timestamps();
         });
     }

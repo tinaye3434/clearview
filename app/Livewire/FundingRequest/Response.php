@@ -25,30 +25,46 @@ class Response extends Component
 
     public function acknowledge(Donation $donation)
     {
-        $donation->update([
-            'status' => 'accepted'
-        ]);
+        try {
+            $donation->update([
+                'status' => 'accepted'
+            ]);
 
-        Ledger::create([
-            'description' => 'Donation from '. $donation->donor->name,
-            'amount' => $donation->amount,
-            'is_income' => true,
-            'request_id' => $donation->funding_request_id,
-        ]);
+            Ledger::create([
+                'description' => 'Donation from '. $donation->donor->name,
+                'amount' => $donation->amount,
+                'is_income' => true,
+                'request_id' => $donation->funding_request_id,
+            ]);
 
-        $total_donated = $donation->request->amount + $donation->amount;
+            $total_donated = $donation->request->raised_amount + $donation->amount;
 
-        $donation->request->update([
-            'amount' => $total_donated
-        ]);
+            $target = $donation->request->target_amount;
+            $progress = ceil($total_donated / $target * 100);
 
-        $this->js('window.location.reload()');
+            $is_funded = false;
 
-        LivewireAlert::title('Success')
-            ->text('Operation completed successfully.')
-            ->position('center')
-            ->success()
-            ->timer(3000)
-            ->show();
+            if((float)$total_donated >= (float)$target){
+                $is_funded = true;
+            }
+
+            $donation->request->update([
+                'raised_amount' => (float)$total_donated,
+                'funding_progress' => (int)$progress > 100 ? 100 : (int)$progress,
+                'is_funded' => $is_funded
+            ]);
+
+            $this->js('window.location.reload()');
+
+            LivewireAlert::title('Success')
+                ->text('Operation completed successfully.')
+                ->position('center')
+                ->success()
+                ->timer(3000)
+                ->show();
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+
     }
 }

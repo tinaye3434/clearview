@@ -6,6 +6,9 @@
             </div>
         @endif
     </div>
+    <div class="row text-right">
+        <flux:button href="{{ route('donor.funding.index') }}" icon="arrow-left">Back</flux:button>
+    </div>
     <div class="max-w-6xl mx-auto p-6 flex flex-col lg:flex-row gap-6">
 
 
@@ -94,7 +97,7 @@
                 <h2 class="text-2xl font-bold">${{ $fundingRequest->raised_amount }} raised</h2>
                 <p class="text-gray-600 text-sm">${{ $fundingRequest->target_amount }} target · {{ $fundingRequest->target_amount - $fundingRequest->raised_amount }} remaining</p>
                 <div class="relative w-full bg-gray-200 h-3 mt-2 rounded-full">
-                    <div class="absolute top-0 left-0 h-3 bg-green-500 rounded-full" style="width: 70%;"></div>
+                    <div class="absolute top-0 left-0 h-3 bg-green-500 rounded-full" style="width: {{ $fundingRequest->funding_progress }}%;"></div>
                 </div>
             </div>
 

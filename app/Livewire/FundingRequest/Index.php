@@ -26,11 +26,10 @@ class Index extends Component
     #[Validate('required|string')]
     public $description = '';
 
-    public FundingRequest $fundingRequest;
+    public $funding_request_id;
 
-    public function mount(FundingRequest $fundingRequest)
+    public function mount()
     {
-        $this->fundingRequest = $fundingRequest;
         $this->organisation_id = Auth::user()->organisation_id;
 
     }
@@ -44,27 +43,44 @@ class Index extends Component
     public function save()
     {
 
-        $this->fundingRequest->create([
-            'title' => $this->title,
-            'description' => $this->description,
-            'organisation_id' => $this->organisation_id,
-        ]);
-
-        if ($this->image) {
-            $path = $this->image->store('images', 'public');
-            $this->fundingRequest->update([
-                'image' => $path
+        try {
+            $request = FundingRequest::create([
+                'title' => $this->title,
+                'description' => $this->description,
+                'organisation_id' => $this->organisation_id,
             ]);
+
+            if ($this->image) {
+                $path = $this->image->store('images', 'public');
+                $request->update([
+                    'image' => $path
+                ]);
+            }
+
+            Flux::modals()->close();
+
+            $this->js('window.location.reload()');
+
+            LivewireAlert::title('Success')
+                ->text('Operation completed successfully.')
+                ->position('center')
+                ->success()
+                ->timer(3000)
+                ->show();
+
+        } catch (\Exception $e) {
+            Flux::modals()->close();
+
+            $this->js('window.location.reload()');
+
+            LivewireAlert::title('Error')
+                ->text('An Error occurred while processing your request.')
+                ->position('center')
+                ->error()
+                ->timer(3000)
+                ->show();
         }
 
-        Flux::modals()->close();
-
-        LivewireAlert::title('Success')
-            ->text('Operation completed successfully.')
-            ->position('center')
-            ->success()
-            ->timer(3000)
-            ->show();
 
     }
 
@@ -73,7 +89,49 @@ class Index extends Component
         $this->title = $fundingRequest->title;
         $this->description = $fundingRequest->description;
         $this->image = $fundingRequest->image;
+        $this->funding_request_id = $fundingRequest->id;
 
-        Flux::modal('add-request')->show();
+        Flux::modal('edit-request')->show();
+    }
+
+    public function update()
+    {
+        try {
+            $request = FundingRequest::findOrFail($this->funding_request_id);
+            $request->update([
+                'title' => $this->title,
+                'description' => $this->description,
+            ]);
+
+            if ($this->image) {
+                $path = $this->image->store('images', 'public');
+                $request->update([
+                    'image' => $path
+                ]);
+            }
+
+            Flux::modals()->close();
+
+            $this->js('window.location.reload()');
+
+            LivewireAlert::title('Success')
+                ->text('Operation completed successfully.')
+                ->position('center')
+                ->success()
+                ->timer(3000)
+                ->show();
+        } catch (\Exception $e) {
+            Flux::modals()->close();
+
+            $this->js('window.location.reload()');
+
+            LivewireAlert::title('Error')
+                ->text('An Error occurred while processing your request.')
+                ->position('center')
+                ->error()
+                ->timer(3000)
+                ->show();
+        }
+
     }
 }
