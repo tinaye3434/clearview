@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('creators/asset-management/approvals', \App\Livewire\AssetManagement\AssetApproval::class)->name('asset.approvals')->middleware('is_approver');
     Route::get('creators/asset-management/disposed-assets', \App\Livewire\AssetManagement\DisposedAssets::class)->name('asset.disposed');
     Route::get('creators/procurement/index', \App\Livewire\Procurement\Index::class)->name('procurement.index');
+    Route::get('creators/procurement/quotation/{item}', \App\Livewire\Procurement\Quotation::class)->name('procurement.quotation');
 
     Route::get('funding-request/index', \App\Livewire\Donors\FundingRequest\Index::class)->name('donor.funding.index');
     Route::get('donors/funding-request/detailed-view/{request}', \App\Livewire\Donors\FundingRequest\DetailedView::class)->name('donors.funding.detailed-view');

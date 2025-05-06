@@ -19,9 +19,13 @@ return new class extends Migration
             $table->double('unit_cost');
             $table->double('quantity');
             $table->double('total_cost');
-            $table->double('actual_cost')->nullable();
+            $table->double('actual_cost')->default(0);
+            $table->double('variance')->default(0);
             $table->boolean('status')->default(true);
             $table->boolean('is_purchased')->default(false);
+            $table->boolean('flagged')->default(false);
+            $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->boolean('has_recommendation')->default(false);
             $table->timestamps();
         });
     }

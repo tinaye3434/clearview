@@ -12,4 +12,9 @@ class BudgetItem extends Model
     {
         return $this->belongsTo('App\Models\FundingRequest');
     }
+
+    public function quotations()
+    {
+        return $this->hasMany('App\Models\Quotation');
+    }
 }
