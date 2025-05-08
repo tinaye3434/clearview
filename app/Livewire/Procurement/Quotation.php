@@ -98,7 +98,7 @@ class Quotation extends Component
             ]);
 
             $this->budget_item->update([
-                'has_recommendation' => 1
+                'has_recommendation' => true
             ]);
 
             $this->has_recommendation = 1;
@@ -113,6 +113,8 @@ class Quotation extends Component
                 ->success()
                 ->timer(3000)
                 ->show();
+
+            return redirect(route('procurement.index'));
         } catch (\Exception $e) {
             dd($e->getMessage());
         }

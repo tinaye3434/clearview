@@ -27,7 +27,7 @@
 
                     <flux:navlist.group heading="Procurement" expandable :expanded="false">
                         <flux:navlist.item :href="route('procurement.index')" :current="request()->routeIs('procurement.index')" wire:navigate>{{ __('Manage') }}</flux:navlist.item>
-                        <flux:navlist.item :href="route('funding.approval.index')" :current="request()->routeIs('funding.approval.index')" wire:navigate>{{ __('Approvals') }}</flux:navlist.item>
+                        <flux:navlist.item :href="route('procurement.approvals')" :current="request()->routeIs('procurement.approvals')" wire:navigate>{{ __('Approvals') }}</flux:navlist.item>
                     </flux:navlist.group>
 
                     <flux:navlist.group heading="Asset Management" expandable :expanded="false">

@@ -1,4 +1,5 @@
 <div>
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -32,7 +33,7 @@
                     </td>
 
                     <td class="px-6 py-4 text-right">
-                        <flux:button href="{{ route('procurement.quotation', $item->id) }}" variant="primary" size="xs" class="w-full mb-2">Quotations</flux:button>
+                        <flux:button href="{{ route('procurement.approve', $item->id) }}" variant="primary" size="xs" class="w-full mb-2">Quotations</flux:button>
                     </td>
                 </tr>
             @empty
