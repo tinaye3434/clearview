@@ -9,9 +9,13 @@ Route::get('/old-home', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', [\App\Http\Controllers\HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+//Route::view('dashboard', 'dashboard')
+//    ->middleware(['auth', 'verified'])
+//    ->name('dashboard');
 
 Route::view('user-dashboard', 'user-dashboard')
     ->middleware(['auth', 'verified'])

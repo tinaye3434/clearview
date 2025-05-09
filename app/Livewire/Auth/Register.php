@@ -54,11 +54,11 @@ class Register extends Component
         Auth::login($user);
 
         if($user->organisation->type == 'donor') {
-            $this->redirect(route('user.dashboard', absolute: false), navigate: true);
+            $this->redirect(route('donor.funding.index', absolute: false), navigate: true);
         }
 
         if($user->organisation->type == 'ngo') {
-            $this->redirect(route('donor.funding.index', absolute: false), navigate: true);
+            $this->redirect(route('user.dashboard', absolute: false), navigate: true);
         }
     }
 }

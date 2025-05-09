@@ -14,6 +14,8 @@ Route::middleware('guest')->group(function () {
     Route::get('register', Register::class)->name('register');
     Route::get('forgot-password', ForgotPassword::class)->name('password.request');
     Route::get('reset-password/{token}', ResetPassword::class)->name('password.reset');
+    Route::get('anonymous-tipoff', \App\Livewire\Auth\Tipoff::class)->name('anonymous-tipoff');
+
 });
 
 Route::middleware('auth')->group(function () {
