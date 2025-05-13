@@ -35,6 +35,9 @@
                         <flux:navlist.item :href="route('asset.approvals')" :current="request()->routeIs('asset.approvals')" wire:navigate>{{ __('Approvals') }}</flux:navlist.item>
                         <flux:navlist.item :href="route('asset.disposed')" :current="request()->routeIs('asset.disposed')" wire:navigate>{{ __('Disposed Assets') }}</flux:navlist.item>
                     </flux:navlist.group>
+
+                    <flux:navlist.item icon="clipboard-document-list" :href="route('reports.index')" :current="request()->routeIs('reports.index')" wire:navigate>{{ __('Reports') }}</flux:navlist.item>
+
                 </flux:navlist.group>
             </flux:navlist>
 

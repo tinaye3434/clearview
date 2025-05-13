@@ -46,6 +46,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('funding-request/index', \App\Livewire\Donors\FundingRequest\Index::class)->name('donor.funding.index');
     Route::get('donors/funding-request/detailed-view/{request}', \App\Livewire\Donors\FundingRequest\DetailedView::class)->name('donors.funding.detailed-view');
+    Route::get('reports', \App\Livewire\Reports\Index::class)->name('reports.index');
+    Route::get('reports/detailed/{request}', \App\Livewire\Reports\DetailedView::class)->name('reports.detailed');
+    Route::get('reports/income-expenditure/{request}', [\App\Http\Controllers\HomeController::class, 'incomeReport'])->name('reports.income-expenditure');
+
 
 });
 

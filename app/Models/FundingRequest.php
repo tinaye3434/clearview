@@ -22,4 +22,10 @@ class FundingRequest extends Model
     {
         return $this->hasMany('App\Models\BudgetItem')->sum('total_cost');
     }
+
+    public function donations()
+    {
+        return $this->hasMany('App\Models\Donation');
+    }
+
 }
